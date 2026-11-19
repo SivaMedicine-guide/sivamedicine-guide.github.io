@@ -187,19 +187,74 @@ table.rxt .x{font-size:11px;color:var(--mut)}table.rxt .xr{font-size:11px;color:
 .infob{border:1px solid var(--line);background:#fff;color:var(--b);border-radius:50%;width:32px;height:32px;font-size:15px;flex:none;margin-right:4px}
 .lrow .lk{flex:1;cursor:pointer}
 .pname{width:100%;padding:11px 10px;font-size:15px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;font-weight:600}
-@media print{header,nav,#side,.noprint{display:none}main{margin:0}body{background:#fff}.card{border:0}}
+
+/* header layout */
+header{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:8px}
+header .htx{text-align:center}
+#menuBtn{padding:0;line-height:0;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.hright{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+#modeBtn{border:1px solid rgba(255,255,255,.5);background:none;color:#fff;border-radius:14px;padding:3px 9px;font-size:11.5px;cursor:pointer;white-space:nowrap}
+#bnav{display:none}
+/* ---------- PHONE MODE (fits like a mobile app) ---------- */
+body.m-phone{background:#e9efec}
+.m-phone header{max-width:520px;margin:0 auto;padding:8px 10px;border-radius:0 0 14px 14px}
+.m-phone header h1{font-size:16px;line-height:1.2}
+.m-phone header p{display:none}
+.m-phone .lang button{padding:4px 8px;font-size:12px}
+.m-phone main{max-width:520px;margin:0 auto!important;padding:8px 8px 86px}
+.m-phone footer{max-width:520px;margin:0 auto!important;padding-bottom:96px}
+.m-phone .card{padding:12px;border-radius:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.m-phone .qbox .row1{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.m-phone .qbox .row1>*{min-width:0;width:100%}
+.m-phone .qbox .row1 #sx,.m-phone .qbox .row1 #ag,.m-phone .qbox .row1 #au{grid-column:span 2}
+.m-phone .qbox .row1 #vpreg{grid-column:span 6}
+.m-phone .qbox .row1.vit #vw,.m-phone .qbox .row1.vit #vt,.m-phone .qbox .row1.vit #vbp{grid-column:span 2}
+.m-phone .qbox .row1.vit #vsg,.m-phone .qbox .row1.vit #vst{grid-column:span 3}
+.m-phone .qbox .row1.vit #vp,.m-phone .qbox .row1.vit #vr,.m-phone .qbox .row1.vit #vo{grid-column:span 2}
+.m-phone .qbox .row1.vit #val{grid-column:span 6}
+/* prescription table becomes cards */
+.m-phone .tw{overflow:visible}
+.m-phone table.rxt thead{display:none}
+.m-phone table.rxt,.m-phone table.rxt tbody{display:block;width:100%}
+.m-phone table.rxt tr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 8px;border:1px solid var(--line);border-left:5px solid var(--g);border-radius:12px;padding:10px;margin-bottom:8px;background:#fff}
+.m-phone table.rxt td{display:block;border:0;padding:0;font-size:13px}
+.m-phone table.rxt td.cn{display:none}
+.m-phone table.rxt td.cm{grid-column:1/-1}
+.m-phone table.rxt td.cd{grid-column:1/-1;font-size:14px}
+.m-phone table.rxt td[data-l]::before{content:attr(data-l);display:block;font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em;margin-bottom:1px}
+.m-phone .mname{font-size:16px}
+.m-phone .share .shb{grid-template-columns:1fr 1fr}
+/* bottom app bar */
+.m-phone #bnav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:520px;background:#fff;border-top:1px solid var(--line);z-index:35;box-shadow:0 -2px 10px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom)}
+#bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 2px 6px;font-size:10.5px;color:var(--mut);text-decoration:none;cursor:pointer}
+#bnav a b{font-size:20px;line-height:1.1;font-weight:400}
+#bnav a.on{color:var(--g);font-weight:700}
+#bnav a.on b{transform:scale(1.12)}
+/* phone mode on a wide screen: keep drawer, centre the app */
+.m-phone #side:not(.open){transform:translateX(-102%)!important;box-shadow:none}
+.m-phone #side.open{transform:none!important;box-shadow:4px 0 18px rgba(0,0,0,.2)}
+.m-phone #menuBtn,.m-phone #closeSide{display:inline-block!important}
+.m-phone .scrim.on{display:block!important}
+.m-phone header,.m-phone main,.m-phone footer{margin-left:auto!important}
+/* ---------- DESKTOP MODE ---------- */
+.m-desk main{max-width:980px}
+.m-desk .tiles{grid-template-columns:repeat(5,1fr)}
+@media(min-width:1000px){.m-desk header{grid-template-columns:auto 1fr auto}.m-desk #menuBtn{visibility:hidden}}
+
+.mhead{display:flex;align-items:center;gap:8px;font-size:17px}
+@media print{header,nav,#side,#bnav,.noprint{display:none!important}main{margin:0}body{background:#fff}.card{border:0}}
 </style>
 </head>
 <body>
 <header>
-<button id="menuBtn" aria-label="Open menu">☰</button>
+<button id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 32 32" width="34" height="34"><rect x="1" y="1" width="30" height="30" rx="8" fill="#fff"/><path d="M12.5 6h7v6.5H26v7h-6.5V26h-7v-6.5H6v-7h6.5z" fill="#d32f2f"/></svg></button>
 <div class="htx"><h1 data-te="వయస్సు &amp; వ్యాధి వారీగా మందుల గైడ్">Medicine Guide by Age &amp; Disease</h1>
 <p data-te="రిజిస్టర్డ్ వైద్యుల కోసం · ఏపీ ప్రాథమిక వైద్యం · జాతీయ మార్గదర్శకాలు">For registered medical practitioners · AP primary care · national guidelines</p></div>
-<div class="lang" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="te">తెలుగు</button></div>
+<div class="hright"><div class="lang" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="te">తెలుగు</button></div><button id="modeBtn" aria-label="Phone or desktop mode"></button></div>
 </header>
 <div id="scrim" class="scrim"></div>
 <aside id="side" aria-label="Menu">
-<div class="sh"><b data-te="మెనూ">Menu</b><button id="closeSide" aria-label="Close menu">×</button></div>
+<div class="sh"><b class="mhead"><svg viewBox="0 0 32 32" width="26" height="26"><rect x="1" y="1" width="30" height="30" rx="8" fill="#d32f2f"/><path d="M12.5 6h7v6.5H26v7h-6.5V26h-7v-6.5H6v-7h6.5z" fill="#fff"/></svg><span data-te="మెనూ">Menu</span></b><button id="closeSide" aria-label="Close menu">×</button></div>
 <input type="search" id="gq" placeholder="Search disease, medicine, test, topic…" data-te-ph="వ్యాధి, మందు, పరీక్ష వెతకండి…" autocomplete="off">
 <div id="gres"></div>
 <div class="card mini" id="installCard" style="display:none"><b>📲 Install app</b><p class="hint" id="installText"></p><button class="btn" id="installBtn" style="margin-top:6px">Install</button></div>
@@ -409,6 +464,7 @@ table.rxt .x{font-size:11px;color:var(--mut)}table.rxt .xr{font-size:11px;color:
 </div></section>
 
 </main>
+<div id="bnav"><a data-b="calc"><b>💊</b><span data-te="మందులు">Prescribe</span></a><a data-b="body"><b>🧍</b><span data-te="శరీరం">Body</span></a><a data-b="single"><b>📋</b><span data-te="వ్యాధులు">Diseases</span></a><a data-b="combo"><b>🔗</b><span data-te="కలయికలు">Combos</span></a><a data-b="menu"><b>🏥</b><span data-te="మెనూ">Menu</span></a></div>
 <footer>Designed by Sivananda Pujari<br><span data-te="సూచన కోసం మాత్రమే — తుది నిర్ణయం చికిత్స చేసే వైద్యునిదే.">Reference aid only — final decision rests with the treating doctor.</span></footer>
 
 <script>
@@ -1358,6 +1414,7 @@ function applyLang(){
   if(typeof buildDMenu==='function') buildDMenu();
   if(typeof listCounts==='function') listCounts();
   if(typeof renderTiles==='function'){ renderTiles(); renderBody(); }
+  if(typeof applyMode==='function') applyMode();
 }
 document.querySelector('.lang').addEventListener('click',e=>{ const b=e.target.closest('button[data-l]'); if(!b) return; LANG=b.dataset.l; try{ localStorage.setItem('mg_lang',LANG);}catch(_){} applyLang(); if(typeof compute==='function') compute(); });
 
@@ -1772,9 +1829,9 @@ function run(){
   if(order.length){
     h+='<div class="tw"><table class="rxt"><thead><tr><th>#</th><th>'+L('Medicine','మందు')+'</th><th>'+L('Dose','మోతాదు')+'</th><th>'+L('When','ఎప్పుడు')+'</th><th>'+L('Food','భోజనం')+'</th><th>'+L('Days','రోజులు')+'</th></tr></thead><tbody>';
     order.forEach((k,i)=>{ const {r}=byK[k]; const t=timing(r); const fl=flagsFor(r);
-      const br=BRAND[k]; h+='<tr><td>'+(i+1)+'</td><td><div class="mrow"><span class="ico">'+ICO[formOf(r)]+'</span><span class="mname">'+esc(r.name)+'</span></div>'+(br?'<div class="brand">'+L('Brands: ','బ్రాండ్లు: ')+esc(br)+'</div>':'')+(r.ab?' <span class="tag">antibiotic</span>':'')+(ids.length>1?'<div class="x">'+L('for ','')+esc([...new Set(byK[k].for.map(d=>dn(d)))].join(' + '))+L('','కు')+'</div>':'')+(r.note?'<div class="x">'+esc(r.note)+'</div>':'')+(fl.length?'<div class="xr">⚠ '+esc(fl.join('; '))+'</div>':'')+'</td>'
-        +'<td>'+esc(r.dose)+'</td><td class="tm"><b>'+esc(LANG==='te'&&!/^[01]-/.test(t.en)?t.te:t.en.replace(/ \(if fever\)/,''))+'</b>'+(TIMING_TE[t.en.replace(/ \(if fever\)/,'')]?'<div class="x">'+(LANG==='te'?TIMING_TE[t.en.replace(/ \(if fever\)/,'')]:TIMING_EN[t.en.replace(/ \(if fever\)/,'')])+(/if fever/.test(t.en)?L(' (if fever)',' (జ్వరం ఉంటే)'):'')+'</div>':'')+'</td>'
-        +'<td><span class="food '+(t.food==='Before food'||t.food==='Empty stomach'?'bf':t.food==='After food'?'af':'ot')+'">'+esc(L(t.food,t.foodTe))+'</span></td><td>'+esc(L(t.days,t.daysTe)||'—')+'</td></tr>'; });
+      const br=BRAND[k]; h+='<tr><td class="cn">'+(i+1)+'</td><td class="cm"><div class="mrow"><span class="ico">'+ICO[formOf(r)]+'</span><span class="mname">'+esc(r.name)+'</span></div>'+(br?'<div class="brand">'+L('Brands: ','బ్రాండ్లు: ')+esc(br)+'</div>':'')+(r.ab?' <span class="tag">antibiotic</span>':'')+(ids.length>1?'<div class="x">'+L('for ','')+esc([...new Set(byK[k].for.map(d=>dn(d)))].join(' + '))+L('','కు')+'</div>':'')+(r.note?'<div class="x">'+esc(r.note)+'</div>':'')+(fl.length?'<div class="xr">⚠ '+esc(fl.join('; '))+'</div>':'')+'</td>'
+        +'<td class="cd" data-l="'+L('Dose','మోతాదు')+'">'+esc(r.dose)+'</td><td class="tm" data-l="'+L('When','ఎప్పుడు')+'"><b>'+esc(LANG==='te'&&!/^[01]-/.test(t.en)?t.te:t.en.replace(/ \(if fever\)/,''))+'</b>'+(TIMING_TE[t.en.replace(/ \(if fever\)/,'')]?'<div class="x">'+(LANG==='te'?TIMING_TE[t.en.replace(/ \(if fever\)/,'')]:TIMING_EN[t.en.replace(/ \(if fever\)/,'')])+(/if fever/.test(t.en)?L(' (if fever)',' (జ్వరం ఉంటే)'):'')+'</div>':'')+'</td>'
+        +'<td data-l="'+L('Food','భోజనం')+'"><span class="food '+(t.food==='Before food'||t.food==='Empty stomach'?'bf':t.food==='After food'?'af':'ot')+'">'+esc(L(t.food,t.foodTe))+'</span></td><td data-l="'+L('Days','రోజులు')+'">'+esc(L(t.days,t.daysTe)||'—')+'</td></tr>'; });
     h+='</tbody></table></div><div class="hint">'+L('Brands are common Indian examples — any brand of the same medicine and strength is fine; Jan Aushadhi generics are cheaper. ','బ్రాండ్లు ఉదాహరణలు మాత్రమే — అదే మందు, అదే బలం ఉన్న ఏ బ్రాండ్ అయినా సరే; జన ఔషధి మందులు చౌక. ')+L('1-0-1 = morning – afternoon – night. ','1-0-1 = ఉదయం – మధ్యాహ్నం – రాత్రి. ')+(P.est?L('*Weight estimated from age — enter the real weight above for exact doses.','*బరువు వయస్సు నుండి అంచనా — సరైన మోతాదుకు పైన బరువు నమోదు చేయండి.'):'')+'</div>';
   } else h+='<div class="alert org">'+L('No medicine to start here — see referral / advice.','ఇక్కడ మందు ప్రారంభించవద్దు — రిఫరల్ / సలహా చూడండి.')+'</div>';
   if(abs.length>1) h+='<div class="alert org">'+CHILD_ONLY_AB_NOTE+' ('+abs.map(k=>byK[k].r.name).join(', ')+')</div>';
@@ -2390,6 +2447,20 @@ document.querySelector('.qlinks').addEventListener('click',e=>{ const a=e.target
 
 $('browse').addEventListener('click',e=>{ const t=e.target.closest('[data-sys]'); if(t){ markMenu(null); showSys(t.dataset.sys); return; } const r=e.target.closest('[data-reg]'); if(r) pickRegion(r.dataset.reg); });
 $('p-sys').addEventListener('click',e=>{ const kp=e.target.closest('[data-keep]'); if(kp){ useIds([kp.dataset.keep],true); return; } const u=e.target.closest('[data-use]'); if(u){ useIds(u.dataset.use.split(',')); return; } const l=e.target.closest('[data-dis]'); if(l) showDisease(l.dataset.dis,1); });
+
+// ===== Phone / Desktop mode =====
+let MODE='auto'; try{ MODE=localStorage.getItem('mg_mode')||'auto'; }catch(e){}
+function curMode(){ return MODE==='auto'?(window.innerWidth<900?'phone':'desk'):MODE; }
+function applyMode(){ const m=curMode(); document.body.classList.toggle('m-phone',m==='phone'); document.body.classList.toggle('m-desk',m==='desk');
+  $('modeBtn').innerHTML=m==='phone'?'🖥 '+L('Desktop','డెస్క్‌టాప్'):'📱 '+L('Phone','ఫోన్'); $('modeBtn').title=m==='phone'?'Switch to desktop mode':'Switch to phone mode'; }
+$('modeBtn').addEventListener('click',()=>{ MODE=curMode()==='phone'?'desk':'phone'; try{ localStorage.setItem('mg_mode',MODE);}catch(e){} applyMode(); });
+window.addEventListener('resize',()=>{ if(MODE==='auto') applyMode(); });
+function markB(b){ document.querySelectorAll('#bnav a').forEach(a=>a.classList.toggle('on',a.dataset.b===b)); }
+$('bnav').addEventListener('click',e=>{ const a=e.target.closest('a[data-b]'); if(!a) return; const b=a.dataset.b;
+  if(b==='menu'){ openSide(true); return; }
+  goPage(b); markB(b); markMenu(document.querySelector('#menu a[data-p='+b+']')); if(b==='single') renderSingle(); if(b==='combo') renderCombo(); window.scrollTo(0,0); });
+const _goPage=goPage; goPage=function(pg){ _goPage(pg); markB(['calc','body','single','combo'].includes(pg)?pg:''); };
+applyMode(); markB('calc');
 
 applyLang();
 listCounts();
