@@ -159,7 +159,7 @@ table.rxt .x{font-size:11px;color:var(--mut)}table.rxt .xr{font-size:11px;color:
 .row1 #vpreg{flex:1.2}
 .btn.wa{background:#25d366}
 .btn.pdf{background:#b3261e}
-.shbig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.shbig .btn{margin:0;font-size:14px;padding:12px 6px}
+.shbig{display:grid;grid-template-columns:1fr;gap:8px;margin-top:8px}.shbig .btn{margin:0;font-size:14px;padding:12px 6px}
 .bh{font-size:15px;margin:14px 2px 8px;color:var(--g)}
 .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 @media(min-width:600px){.tiles{grid-template-columns:repeat(5,1fr)}}
@@ -1787,7 +1787,7 @@ function run(){
   h+='<div class="card noprint share"><h3 style="margin-top:0">'+L('Send prescription','మందుల చీటీ పంపండి')+'</h3>'
    +'<div class="row1"><input id="shPh" type="tel" placeholder="'+L('Patient mobile (optional)','రోగి మొబైల్ (ఐచ్ఛికం)')+'" inputmode="tel"><select id="shLang"><option value="en"'+(LANG==='en'?' selected':'')+'>English</option><option value="te"'+(LANG==='te'?' selected':'')+'>తెలుగు</option><option value="both">English + తెలుగు</option></select></div>'
    +'<input id="shDr" placeholder="'+L('Doctor / clinic name (optional)','డాక్టర్ / క్లినిక్ పేరు (ఐచ్ఛికం)')+'" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--line);border-radius:8px">'
-   +'<div class="shbig"><button id="shImg" class="btn wa">🖼 '+L('WhatsApp – Image (table)','WhatsApp – చిత్రం (పట్టిక)')+'</button><button id="shPdf" class="btn pdf">📄 '+L('WhatsApp – PDF (table)','WhatsApp – PDF (పట్టిక)')+'</button></div>'
+   +'<div class="shbig"><button id="shImg" class="btn wa">🖼 '+L('WhatsApp – Image (table)','WhatsApp – చిత్రం (పట్టిక)')+'</button></div>'
    +'<div class="shb"><button id="shPrev">'+L('Preview image','చిత్రం చూడండి')+'</button><button id="shShare">'+L('Share','షేర్')+'</button><button id="shCopy">'+L('Copy','కాపీ')+'</button><button onclick="window.print()">'+L('Print','ప్రింట్')+'</button></div><div class="hint" id="shMsg"></div><div id="imgPrev" style="margin-top:8px"></div></div>';
   // details per disease
   h+='<details class="card noprint"><summary><b>'+L('Details by disease','వ్యాధి వారీగా వివరాలు')+'</b></summary>'+res.map(o=>'<h3>'+esc(dn(o.d))+' <span class="tag'+(o.sev===2?' red':'')+'">'+SV(o.sev)+'</span></h3><div class="sevtxt">'+esc(o.d.s[o.sev])+'</div>'+o.r.rx.map(r=>rxHTML(r,flagsFor(r))).join('')).join('')+'</details>';
