@@ -197,12 +197,12 @@ header .htx{text-align:center}
 #bnav{display:none}
 /* ---------- PHONE MODE (fits like a mobile app) ---------- */
 body.m-phone{background:#e9efec}
-.m-phone header{max-width:520px;margin:0 auto;padding:8px 10px;border-radius:0 0 14px 14px}
+.m-phone header{max-width:560px;margin:0 auto;padding:8px 10px;border-radius:0 0 14px 14px}
 .m-phone header h1{font-size:16px;line-height:1.2}
 .m-phone header p{display:none}
 .m-phone .lang button{padding:4px 8px;font-size:12px}
-.m-phone main{max-width:520px;margin:0 auto!important;padding:8px 8px 86px}
-.m-phone footer{max-width:520px;margin:0 auto!important;padding-bottom:96px}
+.m-phone main{max-width:560px;margin:0 auto!important;padding:8px 8px 86px}
+.m-phone footer{max-width:560px;margin:0 auto!important;padding-bottom:96px}
 .m-phone .card{padding:12px;border-radius:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .m-phone .qbox .row1{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .m-phone .qbox .row1>*{min-width:0;width:100%}
@@ -225,7 +225,7 @@ body.m-phone{background:#e9efec}
 .m-phone .mname{font-size:16px}
 .m-phone .share .shb{grid-template-columns:1fr 1fr}
 /* bottom app bar */
-.m-phone #bnav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:520px;background:#fff;border-top:1px solid var(--line);z-index:35;box-shadow:0 -2px 10px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom)}
+.m-phone #bnav{display:flex;position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:560px;background:#fff;border-top:1px solid var(--line);z-index:35;box-shadow:0 -2px 10px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom)}
 #bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 2px 6px;font-size:10.5px;color:var(--mut);text-decoration:none;cursor:pointer}
 #bnav a b{font-size:20px;line-height:1.1;font-weight:400}
 #bnav a.on{color:var(--g);font-weight:700}
@@ -2450,8 +2450,13 @@ $('p-sys').addEventListener('click',e=>{ const kp=e.target.closest('[data-keep]'
 
 // ===== Phone / Desktop mode =====
 let MODE='auto'; try{ MODE=localStorage.getItem('mg_mode')||'auto'; }catch(e){}
-function curMode(){ return MODE==='auto'?(window.innerWidth<900?'phone':'desk'):MODE; }
-function applyMode(){ const m=curMode(); document.body.classList.toggle('m-phone',m==='phone'); document.body.classList.toggle('m-desk',m==='desk');
+function isPhoneDevice(){ const coarse=window.matchMedia&&matchMedia('(pointer:coarse)').matches; return (coarse&&Math.min(screen.width,screen.height)<900)||window.innerWidth<900; }
+function curMode(){ return MODE==='auto'?(isPhoneDevice()?'phone':'desk'):MODE; }
+function fitZoom(){ // phone shown as 'desktop site' (wide layout viewport): scale up to the real screen width
+  const coarse=window.matchMedia&&matchMedia('(pointer:coarse)').matches; const sw=screen.width;
+  let z=1; if(curMode()==='phone'&&coarse&&sw&&window.innerWidth>sw*1.25) z=window.innerWidth/sw;
+  document.documentElement.style.zoom=z>1?z.toFixed(3):''; }
+function applyMode(){ const m=curMode(); document.body.classList.toggle('m-phone',m==='phone'); document.body.classList.toggle('m-desk',m==='desk'); fitZoom();
   $('modeBtn').innerHTML=m==='phone'?'🖥 '+L('Desktop','డెస్క్‌టాప్'):'📱 '+L('Phone','ఫోన్'); $('modeBtn').title=m==='phone'?'Switch to desktop mode':'Switch to phone mode'; }
 $('modeBtn').addEventListener('click',()=>{ MODE=curMode()==='phone'?'desk':'phone'; try{ localStorage.setItem('mg_mode',MODE);}catch(e){} applyMode(); });
 window.addEventListener('resize',()=>{ if(MODE==='auto') applyMode(); });
